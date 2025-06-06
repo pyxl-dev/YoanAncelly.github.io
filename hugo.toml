@@ -1,0 +1,46 @@
+baseURL = "https://tonpseudo.github.io/"
+languageCode = "fr-fr"
+title = "Exploit Notes"
+theme = "PaperMod"
+
+[pagination]
+pagerSize = 10
+
+
+[params]
+author = "Ton Nom"
+description = "Writeups, recherches et réflexions en cybersécurité"
+ShowReadingTime = true
+ShowToc = true
+TocOpen = true
+ShowBreadCrumbs = true
+defaultTheme = "dark"
+
+[menu]
+[[menu.main]]
+identifier = "posts"
+name = "Articles"
+url = "/posts/"
+weight = 1
+
+[[menu.main]]
+identifier = "recherches"
+name = "Recherches"
+url = "/recherches/"
+weight = 2
+
+[[menu.main]]
+identifier = "reflexions"
+name = "Réflexions"
+url = "/reflexions/"
+weight = 3
+
+[build]
+[[build.cachebusters]]
+source = "scss"
+target = "css"
+
+[permalinks]
+posts = "/posts/:slug/"
+recherches = "/recherches/:slug/"
+reflexions = "/reflexions/:slug/"
