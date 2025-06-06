@@ -1,6 +1,6 @@
-baseURL = "https://tonpseudo.github.io/"
+baseURL = "https://yoanancelly.github.io/"
 languageCode = "fr-fr"
-title = "Exploit Notes"
+title = "Yoan Ancelly | Blog"
 theme = "PaperMod"
 
 [pagination]
@@ -8,7 +8,7 @@ pagerSize = 10
 
 
 [params]
-author = "Ton Nom"
+author = "Yoan Ancelly"
 description = "Writeups, recherches et réflexions en cybersécurité"
 ShowReadingTime = true
 ShowToc = true
@@ -23,18 +23,6 @@ name = "Articles"
 url = "/posts/"
 weight = 1
 
-[[menu.main]]
-identifier = "recherches"
-name = "Recherches"
-url = "/recherches/"
-weight = 2
-
-[[menu.main]]
-identifier = "reflexions"
-name = "Réflexions"
-url = "/reflexions/"
-weight = 3
-
 [build]
 [[build.cachebusters]]
 source = "scss"
@@ -42,8 +30,6 @@ target = "css"
 
 [permalinks]
 posts = "/posts/:slug/"
-recherches = "/recherches/:slug/"
-reflexions = "/reflexions/:slug/"
 
 [caches]
 [caches.images]
