@@ -44,3 +44,7 @@ target = "css"
 posts = "/posts/:slug/"
 recherches = "/recherches/:slug/"
 reflexions = "/reflexions/:slug/"
+
+[caches]
+[caches.images]
+dir = ':cacheDir/images'
