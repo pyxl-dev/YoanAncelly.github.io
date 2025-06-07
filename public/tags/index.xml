@@ -16,6 +16,27 @@
       <description></description>
     </item>
     <item>
+      <title>Csrf</title>
+      <link>http://localhost:1313/tags/csrf/</link>
+      <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
+      <guid>http://localhost:1313/tags/csrf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ctf</title>
+      <link>http://localhost:1313/tags/ctf/</link>
+      <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ctf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ssrf</title>
+      <link>http://localhost:1313/tags/ssrf/</link>
+      <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ssrf/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Web</title>
       <link>http://localhost:1313/tags/web/</link>
       <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
@@ -27,6 +48,13 @@
       <link>http://localhost:1313/tags/writeup/</link>
       <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
       <guid>http://localhost:1313/tags/writeup/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Xs-Leaks</title>
+      <link>http://localhost:1313/tags/xs-leaks/</link>
+      <pubDate>Fri, 06 Jun 2025 12:19:13 +0000</pubDate>
+      <guid>http://localhost:1313/tags/xs-leaks/</guid>
       <description></description>
     </item>
   </channel>
