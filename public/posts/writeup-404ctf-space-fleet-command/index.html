@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Writeup 404CTF : Space Fleet Command | Yoan Ancelly | Blog</title>
-<meta name="keywords" content="404CTF, web, writeup">
-<meta name="description" content="Writeup 404CTF : Space Fleet Command">
+<title>Writeup 404CTF - Space Fleet Command | Yoan Ancelly | Blog</title>
+<meta name="keywords" content="404CTF, web, writeup, ctf, csrf, ssrf, xs-leaks">
+<meta name="description" content="A web challenge combining CSRF, SSRF and XS-Leaks">
 <meta name="author" content="Yoan Ancelly">
 <link rel="canonical" href="http://localhost:1313/posts/writeup-404ctf-space-fleet-command/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.ae3d277e69647c027e65dd7c785748f912a9be2d37da0061b9ff15a5d7fafb7b.css" integrity="sha256-rj0nfmlkfAJ&#43;Zd18eFdI&#43;RKpvi032gBhuf8Vpdf6&#43;3s=" rel="preload stylesheet" as="style">
@@ -80,18 +80,76 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Writeup 404CTF : Space Fleet Command
+      Writeup 404CTF - Space Fleet Command
     </h1>
     <div class="post-description">
-      Writeup 404CTF : Space Fleet Command
+      A web challenge combining CSRF, SSRF and XS-Leaks
     </div>
-    <div class="post-meta"><span title='2025-06-06 12:19:13.562 +0000 UTC'>June 6, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Yoan Ancelly
+    <div class="post-meta"><span title='2025-06-06 12:19:13.562 +0000 UTC'>June 6, 2025</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Yoan Ancelly
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-  <div class="post-content"><p>Test</p>
-<p><img alt="Space Fleet Command" loading="lazy" src="/images/spacefleetcommand.png"></p>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#overview" aria-label="Overview">Overview</a></li>
+                <li>
+                    <a href="#analysis" aria-label="Analysis">Analysis</a><ul>
+                        
+                <li>
+                    <a href="#pages" aria-label="Pages">Pages</a><ul>
+                        
+                <li>
+                    <a href="#home-page" aria-label="Home page">Home page</a></li>
+                <li>
+                    <a href="#report-page" aria-label="Report page">Report page</a></li>
+                <li>
+                    <a href="#spaceship-page" aria-label="Spaceship page">Spaceship page</a></li></ul>
+                </li>
+                <li>
+                    <a href="#first-tries" aria-label="First tries">First tries</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<p>Space Fleet Command is a web challenge from 404CTF created by <strong>_hdrien</strong>. It was released as a &ldquo;hard&rdquo; difficulty challenge and has been resolved by 27 players out of over 2500.</p>
+<p>In this writeup, I’ll walk you through my thought process, the tools I used, and how I ultimately captured the flag.</p>
+<p><img alt="Challenge" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/challenge.png"></p>
+<h2 id="analysis">Analysis<a hidden class="anchor" aria-hidden="true" href="#analysis">#</a></h2>
+<p>First thing first, I started the challenge in a black box way for a simple reason : I absolutely didn&rsquo;t saw that the source code was available. No judgement, I&rsquo;m proud that I&rsquo;ve found a few things in this way haha.</p>
+<h3 id="pages">Pages<a hidden class="anchor" aria-hidden="true" href="#pages">#</a></h3>
+<p>The challenge is a web application to manage spaceships and report bugs.</p>
+<h4 id="home-page">Home page<a hidden class="anchor" aria-hidden="true" href="#home-page">#</a></h4>
+<blockquote>
+<p>Route : <code>/</code></p></blockquote>
+<p>On this page there is an input to search for a spaceship by name. It will display the spaceship page in the list if it exists.</p>
+<p><img alt="Home page" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/home.png"></p>
+<h4 id="report-page">Report page<a hidden class="anchor" aria-hidden="true" href="#report-page">#</a></h4>
+<blockquote>
+<p>Route : <code>/report</code></p></blockquote>
+<p>On this page there is a form to report a bug. Once you submit the form, it says that an admin will visit the page.</p>
+<p><img alt="Report page" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/report.png"></p>
+<h4 id="spaceship-page">Spaceship page<a hidden class="anchor" aria-hidden="true" href="#spaceship-page">#</a></h4>
+<blockquote>
+<p>Route : <code>/spaceship/:id</code></p></blockquote>
+<p>On this page you can see the details on the selected spaceship.</p>
+<p><img alt="Spaceship page" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/spaceship.png"></p>
+<h3 id="first-tries">First tries<a hidden class="anchor" aria-hidden="true" href="#first-tries">#</a></h3>
+<p>I started by trying some simple XSS attacks and SQL injection but it didn&rsquo;t work.</p>
+<p>After some research, I succeeded to trigger an error on the <code>/spaceship/:id</code> page by using a malformed URL. I used <code>spaceship/%90</code> because it&rsquo;s not decoded as a character but I quickly understood that was a rabbit hole.</p>
+<p><img alt="Error" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/error-spaceship.png"></p>
+<p>Then I tried to attack the <code>/?q=</code> query parameter and found that I was able to trigger an error by using <a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution">HTTP Parameter Pollution</a> which is a technique where you put a parameter multiple times with different values. One more time it was a rabbit hole.</p>
+<p><img alt="Error" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/error-q.png"></p>
+<p>It was time to dig onto <code>/report</code> page and I had a good feeling about it. When you fill the two input fields you have a request like this ``</p>
 
 
   </div>
@@ -101,6 +159,10 @@
       <li><a href="http://localhost:1313/tags/404ctf/">404CTF</a></li>
       <li><a href="http://localhost:1313/tags/web/">Web</a></li>
       <li><a href="http://localhost:1313/tags/writeup/">Writeup</a></li>
+      <li><a href="http://localhost:1313/tags/ctf/">Ctf</a></li>
+      <li><a href="http://localhost:1313/tags/csrf/">Csrf</a></li>
+      <li><a href="http://localhost:1313/tags/ssrf/">Ssrf</a></li>
+      <li><a href="http://localhost:1313/tags/xs-leaks/">Xs-Leaks</a></li>
     </ul>
   </footer>
 </article>
