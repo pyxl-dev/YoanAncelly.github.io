@@ -208,6 +208,16 @@
 <p><img alt="Webhook.site" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/webhook-site.png"></p>
 <p>At this point I was super excited because I knew that I was able to perform a SSRF attack and make the bot visit any URL.</p>
 <h4 id="csrf--xs-leaks-attack">CSRF + XS-Leaks attack<a hidden class="anchor" aria-hidden="true" href="#csrf--xs-leaks-attack">#</a></h4>
+<p>Now that I was able to perform a SSRF attack, I needed to find a way to steal the flag.</p>
+<p>I started by looking for a way to steal the flag from the <code>spaceship/:id</code> page but it was not possible.</p>
+<p>Then I tried to put some <code>&lt;h1&gt;test&lt;/h1&gt;</code> in the <code>url</code> parameter of the <code>/report</code> page and it worked !</p>
+<p><img alt="HTML in the url parameter" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/html-in-url.png"></p>
+<p>I tried to figure out why that was possible and everything is due to the <code>report.ejs</code> file.</p>
+<p><img alt="Source code of the report.ejs file" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/source-code-report-ejs.png"></p>
+<p>At line 16 we can see <code>&lt;%- message %&gt;</code> which is a raw EJS tag. It means that the <code>message</code> variable is not escaped and it&rsquo;s possible to inject HTML in it.</p>
+<p><img alt="ejs tags" loading="lazy" src="/posts/writeup-404ctf-space-fleet-command/ejs-tags.png">
+<em>Source: <a href="https://ejs.co/#docs">https://ejs.co/#docs</a></em></p>
+<p>PERFECT ! We have an entry point to inject the HTML code we want BUT at this point I was blocked.</p>
 
 
   </div>

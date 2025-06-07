@@ -132,3 +132,22 @@ Let's put `https://@webhook.site/7e7b947e-0d2b-43ec-8317-d10ac4599b66` in the `u
 At this point I was super excited because I knew that I was able to perform a SSRF attack and make the bot visit any URL.
 
 #### CSRF + XS-Leaks attack
+
+Now that I was able to perform a SSRF attack, I needed to find a way to steal the flag.
+
+I started by looking for a way to steal the flag from the `spaceship/:id` page but it was not possible.
+
+Then I tried to put some `<h1>test</h1>` in the `url` parameter of the `/report` page and it worked !
+
+![HTML in the url parameter](html-in-url.png)
+
+I tried to figure out why that was possible and everything is due to the `report.ejs` file.
+
+![Source code of the report.ejs file](source-code-report-ejs.png)
+
+At line 16 we can see `<%- message %>` which is a raw EJS tag. It means that the `message` variable is not escaped and it's possible to inject HTML in it.
+
+![ejs tags](ejs-tags.png)
+_Source: [https://ejs.co/#docs](https://ejs.co/#docs)_
+
+PERFECT ! We have an entry point to inject the HTML code we want BUT at this point I was blocked. 
